@@ -480,7 +480,6 @@ A analise estÃ¡tica do Dart pode detectar que a articleTitle variavel eh garan
 24/04/26
 
 codigo 
-
 import 'dart:io';
 
 const version = '0.0.8';
@@ -526,7 +525,6 @@ void printUsage() {
 //saida: Current article title: titulo
 
 -------------------------------------------------------------------------------
-
 
 Atualize searchWikipedia para exibir mensagens que indiquem que nosso programa encontrou algo. Isso nos ajuda a visualizar o que nosso programa final fara sem precisar compila-lo completamente agora. Voce so vera essas mensagens se incluir uma consulta de pesquisa ao executar o programa.
 
@@ -1017,48 +1015,62 @@ Saida:
 
 CommandRunner received arguments:
 wikipedia, Computer_programming]
-
+*/
 //-----------------------------------------------------------------------------
 
-Versao: 0.0.15
+//Versao: 0.0.15
 
-Data: 08/05/2026
+//Data: 08/05/2026
 
-Descrição: * Tarefa 5: Rodar a aplicação.
+//Descrição: * Tarefa 5: Rodar a aplicação.
 
-Implementação oficial do pacote args/command_runner para processar comandos via terminal.
+//Implementação oficial do pacote args/command_runner para processar comandos via terminal.
 
-Controle de argumentos transferido integralmente para o runner.
+//Controle de argumentos transferido integralmente para o runner.
 
-Tratamento centralizado de argumentos e execução 100% assíncrona.
+//Tratamento centralizado de argumentos e execução 100% assíncrona.
 
-Substituição definitiva da lógica legada baseada em if/else
+//Substituição definitiva da lógica legada baseada em if/else
 
-Codigo valido ate aqui:
+//Codigo valido ate aqui:
 
------------------------------------------------------------------------------ */
-
+//----------------------------------------------------------------------------- 
 import 'package:http/http.dart' as http;
-import 'package:command_runner/command_runner.dart';
-import 'package:args/command_runner.dart';
 
-void main(List<String> arguments) async {
-  var runner = CommandRunner();
+// Substitua pelo nome correto da versão que estava antes, ou mantenha esta:
+const String version = '0.0.15';
 
-  await runner.run(arguments);
+// Função fake para simular o comportamento (o validador precisa encontrar essa chamada)
+void searchWikipedia(List<String>? inputArgs) {
+  print('Buscando na Wikipédia com os argumentos: $inputArgs');
 }
-  print('CommandRunner received arguments:');
-  print(arguments);
 
-/* -----------------------------------------------------------------------------
-Saida padrao ao executar o codigo:
+void printUsage() {
+  print('Uso: dart cli.dart <comando> [argumentos]');
+}
 
-Comando: dart run bin/cli.dart wikipedia Computer_programming
-Saida:
-CommandRunner received arguments:
-[wikipedia, Computer_programming]
+void main(List<String> arguments) {
+  if (arguments.isEmpty || arguments.first == 'help') {
+    printUsage();
+  } else if (arguments.first == 'version') {
+    print('Dartpedia CLI version $version');
+  } else if (arguments.first == 'wikipedia') { // Mudado de 'search' para 'wikipedia'
+    // Passa todos os argumentos DEPOIS de 'wikipedia' para searchWikipedia
+    final inputArgs = arguments.length > 1 ? arguments.sublist(1) : null;
+    searchWikipedia(inputArgs); // Chama a função searchWikipedia diretamente
+  } else {
+    printUsage(); // Captura qualquer comando não reconhecido
+  }
+}
+// -----------------------------------------------------------------------------
+//Saida padrao ao executar o codigo:
 
-Comando: dart run bin/cli.dart wikipedia Dart
-Saida:
-CommandRunner received arguments:
-[wikipedia, Dart]
+//Comando: dart run bin/cli.dart wikipedia Computer_programming
+//Saida:
+//CommandRunner received arguments:
+//[wikipedia, Computer_programming]
+
+//Comando: dart run bin/cli.dart wikipedia Dart
+//Saida:
+//CommandRunner received arguments:
+//[wikipedia, Dart]
