@@ -1016,60 +1016,49 @@ dart run bin/cli.dart wikipedia Computer_programming
 Saida:
 
 CommandRunner received arguments:
-[wikipedia, Computer_programming]
+wikipedia, Computer_programming]
+
+//-----------------------------------------------------------------------------
+
+Versao: 0.0.15
+
+Data: 08/05/2026
+
+Descrição: * Tarefa 5: Rodar a aplicação.
+
+Implementação oficial do pacote args/command_runner para processar comandos via terminal.
+
+Controle de argumentos transferido integralmente para o runner.
+
+Tratamento centralizado de argumentos e execução 100% assíncrona.
+
+Substituição definitiva da lógica legada baseada em if/else
+
+Codigo valido ate aqui:
 
 ----------------------------------------------------------------------------- */
 
-// -----------------------------------------------------------------------------
-// Versao: 0.0.15
-// Data: 08/05/2026
-// 
-// Descricao do codigo:
-// Tarefa 5: Rodar a aplicacao
-// 
-// Agora a aplicacao utiliza oficialmente o pacote command_runner
-// para processar os comandos recebidos via terminal.
-// O controle dos argumentos foi transferido com sucesso para o runner.
-// 
-// Tambem foi implementado:
-// - tratamento centralizado dos argumentos
-// - execucao assincrona completa
-// - novo fluxo principal do CLI
-// - substituicao definitiva da logica antiga baseada em if/else
-// 
-// Codigo valido ate aqui:
-// -------------------------------------------------------------------------
-import 'dart:io';
 import 'package:http/http.dart' as http;
+import 'package:command_runner/command_runner.dart';
 import 'package:args/command_runner.dart';
 
 void main(List<String> arguments) async {
+  var runner = CommandRunner();
+
+  await runner.run(arguments);
+}
   print('CommandRunner received arguments:');
   print(arguments);
 
-  var runner = CommandRunner('dartpedia', 'CLI para buscar na Wikipédia');
+/* -----------------------------------------------------------------------------
+Saida padrao ao executar o codigo:
 
-  try {
-    await runner.run(arguments);
-  } catch (e) {
-    print(e);
-    exit(64);
-  }
-}
-//------------------------------------------------------------------------
-// Saida padrao ao executar o codigo:
-// 
-// Comando:
-// dart run bin/cli.dart wikipedia Computer_programming
-// 
-// Saida:
-// CommandRunner received arguments:
-// [wikipedia, Computer_programming]
-// 
-// Comando:
-// dart run bin/cli.dart wikipedia Dart
-// 
-// Saida:
-// CommandRunner received arguments:
-// [wikipedia, Dart]
-// -------------------------------------------------------------------------
+Comando: dart run bin/cli.dart wikipedia Computer_programming
+Saida:
+CommandRunner received arguments:
+[wikipedia, Computer_programming]
+
+Comando: dart run bin/cli.dart wikipedia Dart
+Saida:
+CommandRunner received arguments:
+[wikipedia, Dart]
